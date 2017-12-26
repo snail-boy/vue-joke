@@ -9,10 +9,13 @@
 <script>
 export default {
   name: 'app',
-  data(){
+  data() {
     return {
-      msg:'笑话'
+      msg: '笑话'
     }
+  },
+  created(){
+    document.title = 'vue-joke'
   }
 }
 </script>

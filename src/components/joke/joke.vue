@@ -4,7 +4,7 @@
       <el-menu default-active="1-3-1" class="el-menu-vertical-demo"
                mode="horizontal">
 
-        <el-menu-item index="1" class="el-menu-item ">
+        <el-menu-item index="1" class="el-menu-item">
           <router-link :to="{name:'joke',params:{id:1}}">文字笑话</router-link>
         </el-menu-item>
         <el-menu-item index="2">
