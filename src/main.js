@@ -9,6 +9,9 @@ import './common/style/element-variables.scss'
 
 import lazyload from 'vue-lazyload'
 
+import '../static/flexible'
+
+
 Vue.use(ElementUI, { size: 'small' })
 
 Vue.use(lazyload,{

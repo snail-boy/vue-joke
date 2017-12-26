@@ -23,7 +23,7 @@
     <div class="main">
       <ul>
         <li v-for="(item,index) in list" :class="{active:index === currentItem}" @click="click(index)">
-          <h4 class="joke-title">{{(currentPage-1)*10+index}}.&nbsp;{{item.title}}</h4>
+          <h4 class="joke-title">{{(currentPage-1)*10+index+1}}.&nbsp;{{item.title}}</h4>
           <!--<p v-if="item.text" >{{item.text.replace(/<[^>]+>/g,"")}}</p>-->
           <p v-if="item.text" v-html="item.text" class="joke-content">{{item.text}}</p>
 
@@ -201,13 +201,14 @@
 
   ul li {
     width: 90%;
-    font-size: 12px;
+    font-size: 14px;
     list-style: none;
     margin: 0 auto;
     box-sizing: border-box;
   }
 
   a {
+    font-size: 26px;
     text-decoration: none;
   }
 
@@ -221,8 +222,7 @@
   }
 
   .main {
-    margin-top: 70px;
-    margin-bottom: 70px;
+    margin: 140px 0;
 
   ul li {
     transition: all .3s;
@@ -239,12 +239,7 @@
 
   }
 
-  footer {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    margin-left: -158px;
-  }
+
 
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     position: fixed;
@@ -256,7 +251,7 @@
   }
 
   .joke-title {
-    font-size: 16px;
+    font-size: 18px;
     color: #75a4d4;
   }
 
@@ -272,13 +267,12 @@
 
   .time {
     color: #0db430;
-    font-size: 12px;
+    font-size: 26px;
     float: right;
 
   i {
     margin-left: 10px;
   }
-
   }
 
   img {
@@ -297,4 +291,26 @@
     height: 100%;
     z-index: 1000;
   }
+
+  .el-menu--horizontal .el-menu-item {
+    float: left;
+    height: 100px;
+    line-height: 100px;
+    a{
+      font-size: 36px;
+    }
+  }
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    margin-left: -280px;
+    font-size: 26px;
+  }
+  .el-button{
+    width: 140px;
+    height: 80px;
+    font-size: 24px;
+  }
+
 </style>
