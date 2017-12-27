@@ -32,6 +32,7 @@
               class="main-content"
               :pullup="pullup"
               @scrollToEnd="scrollToEnd"
+              @scrollToStart="scrollToStart"
               @scroll="scroll"
       >
         <div class="main">
@@ -59,7 +60,7 @@
     <footer>
       <el-button-group>
         <el-button type="primary" icon="el-icon-arrow-left" @click="prevPage">上一页</el-button>
-        <el-button type="primary"><i class="el-icon-arrow-right el-icon--right" @click="nextPage">下一页</i></el-button>
+        <el-button type="primary" @click="nextPage">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
         <el-button type="primary">共{{allPages}}页</el-button>
         <el-button type="primary">当前{{currentPage}}页</el-button>
       </el-button-group>
@@ -79,6 +80,7 @@
   import {commonParams} from "../../api/config";
   import loading from '../loading/loading'
   import scroll from './scroll'
+
 
   export default {
     data() {
@@ -190,19 +192,18 @@
         const type = this.$route.params.id;
         const page = commonParams.page;
         this.loading = true;
+        console.log(this.currentPage)
+        alert(22)
         joke(type, page).then((res) => {
           this.list = res.showapi_res_body.contentlist;
           this.scrollTo()
-
-          setTimeout(() => {
             commonParams.page++;
             this.currentPage++;
             this.loading = false;
-          }, 2000)
-        });
-        this.textList = '';
-        this.picList = '';
-        this.gifList = '';
+          }, 1000)
+        // this.textList = '';
+        // this.picList = '';
+        // this.gifList = '';
       },
       prevPage() {
         commonParams.page--;
@@ -210,12 +211,12 @@
         const page = commonParams.page;
         joke(type, page).then((res) => {
           this.list = res.showapi_res_body.contentlist;
-          this.currentPage--
+          this.currentPage--;
           this.scrollTo()
         });
-        this.textList = '';
-        this.picList = '';
-        this.gifList = '';
+        // this.textList = '';
+        // this.picList = '';
+        // this.gifList = '';
       },
 
       click(item) {
@@ -233,7 +234,7 @@
         const type = this.$route.params.id;
          joke(type, +page).then((res) => {
           this.list = res.showapi_res_body.contentlist;
-            this.currentPage = page
+            this.currentPage = page;
            this.scrollTo()
       });
       },
@@ -251,11 +252,23 @@
           this.scrollTo(100)
         });
       },
+      scrollToStart(){
+        const type = this.$route.params.id;
+        if(this.currentPage<=1){
+          this.currentPage = 1
+        }else{
+          const page =this.currentPage--;
+
+          joke(type, +page).then((res) => {
+            this.list = res.showapi_res_body.contentlist;
+          });
+        }
+
+      },
       scrollTo(speed){
         this.$refs.scroll.scrollTo(0,0,speed)
       },
       scroll(pos){
-        console.log(pos.y)
         this.scrollY = pos.y;
       }
     },
@@ -298,15 +311,12 @@
   }
 
   a {
-    font-size: 26px;
+    font-size: 16px;
     text-decoration: none;
   }
 
   .link {
     text-align: center;
-    ul li{
-
-    }
   .el-menu-vertical-demo a.active {
     color: #303133;
   }
@@ -314,8 +324,8 @@
   }
 
   .main {
-    padding-top: 240px;
-    padding-bottom: 240px;
+    padding-top: 120px;
+    padding-bottom: 120px;
     ul{
       -webkit-padding-start: 0;
 
@@ -348,24 +358,24 @@
   }
 
   .joke-title {
-    font-size: 32px;
+    font-size:16px;
     color: #75a4d4;
   }
 
   .joke-content {
-    font-size: 30px;
+    font-size: 14px;
     color: #222;
     letter-spacing: 5px;
   }
 
   .timeBox {
     height: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
   }
 
   .time {
     color: #0db430;
-    font-size: 26px;
+    font-size: 14px;
     float: right;
 
   i {
@@ -393,76 +403,78 @@
 
   .el-menu--horizontal .el-menu-item {
     float: left;
-    height: 100px;
-    line-height: 100px;
+    height: 50px;
+    line-height: 50px;
     a{
-      font-size: 36px;
+      font-size: 18px;
     }
   }
   footer {
     position: fixed;
     bottom: 0;
     left: 50%;
-    margin-left: -280px;
-    font-size: 26px;
+    margin-left: -160px;
+    font-size: 12px;
     z-index: 10;
 
   }
   .el-button{
-    width: 140px;
-    height: 80px;
-    font-size: 24px;
+    width: 80px;
+    height: 40px;
+    font-size: 12px;
   }
 
 
 
   .goBack {
     position: fixed;
-    width: 75px;
-    height: 75px;
+    width: 25px;
+    height:25px;
     border-radius: 100%;
-    bottom: 1rem;
-    padding:.05rem;
-    right: .2rem;
+    bottom: 50px;
+    padding:10px;
+    right: 20px;
     z-index: 10;
-    background: rgba(0,0,0,.2) url("../../assets/back-top.png") no-repeat center center;
+    background: rgba(0,0,0,.2) url("../../assets/back-top.png") no-repeat center;
+    background-size: 50%;
   }
+
 
   .input-box{
     position: fixed;
-    top: 120px;
+    top: 60px;
     left: 50%;
     width: 80%;
-    height: 80px;
+    height: 40px;
     margin-left: -40%;
-    background: red;
     z-index: 10;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
 
   input{
       width: 100%;
-      height: 80px;
-      border: none;
-      font-size: .3rem;
-      text-indent: .5rem;
+      height: 40px;
+      font-size: 14px;
+      text-indent: 12px;
       box-sizing: border-box;
-      border-bottom-right-radius: 10px;
-      border-top-right-radius: 10px;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
+      border: 1px solid #eee;
+    outline: none;
     }
     .sure{
       position: fixed;
-      top: 120px;
+      top: 60px;
       right: 10%;
-      width: 120px;
-      height: 80px;
+      width: 60px;
+      height: 40px;
       background: #339999;
       text-align: center;
-      line-height: 80px;
+      line-height: 40px;
       color: #fff;
-      font-size: 30px;
-      border-bottom-right-radius: 10px;
-      border-top-right-radius: 10px;
+      font-size: 16px;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
       cursor: pointer;
       z-index: 10;
     }
@@ -470,6 +482,7 @@
   .main-box{
     position: fixed;
     top: 0;
+    left: 0;
     bottom: 0;
     width: 100%;
   }

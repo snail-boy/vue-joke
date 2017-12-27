@@ -11,7 +11,7 @@
     props: {
       probeType: {
         type: Number,
-        default: 1
+        default: 3
       },
       click: {
         type: Boolean,
@@ -29,7 +29,10 @@
         type: Boolean,
         default: false
       },
-
+      pulldown: {
+        type: Boolean,
+        default: true
+      },
       beforeScroll: {
         type: Boolean,
         default: false
@@ -67,6 +70,14 @@
           this.scroll.on('scrollEnd', () => {
             if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
               this.$emit('scrollToEnd')
+            }
+          })
+        }
+
+        if (this.pulldown) {
+          this.scroll.on('touchEnd', () => {
+            if (this.scroll.y > 50) {
+              this.$emit('scrollToStart')
             }
           })
         }

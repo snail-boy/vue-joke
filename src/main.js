@@ -3,13 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+
+// import '../static/flexible'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './common/style/element-variables.scss'
 
 import lazyload from 'vue-lazyload'
 
-import '../static/flexible'
 
 
 Vue.use(ElementUI, { size: 'small' })
