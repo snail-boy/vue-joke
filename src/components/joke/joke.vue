@@ -192,18 +192,19 @@
         const type = this.$route.params.id;
         const page = commonParams.page;
         this.loading = true;
-        console.log(this.currentPage)
-        alert(22)
         joke(type, page).then((res) => {
           this.list = res.showapi_res_body.contentlist;
           this.scrollTo()
+          setTimeout(()=>{
             commonParams.page++;
             this.currentPage++;
             this.loading = false;
-          }, 1000)
-        // this.textList = '';
-        // this.picList = '';
-        // this.gifList = '';
+          },2000)
+
+          this.textList = '';
+          this.picList = '';
+          this.gifList = '';
+        })
       },
       prevPage() {
         commonParams.page--;
@@ -211,12 +212,14 @@
         const page = commonParams.page;
         joke(type, page).then((res) => {
           this.list = res.showapi_res_body.contentlist;
-          this.currentPage--;
-          this.scrollTo()
+          setTimeout(()=>{
+            this.currentPage--;
+            this.scrollTo()
+          },2000)
         });
-        // this.textList = '';
-        // this.picList = '';
-        // this.gifList = '';
+        this.textList = '';
+        this.picList = '';
+        this.gifList = '';
       },
 
       click(item) {
@@ -258,7 +261,6 @@
           this.currentPage = 1
         }else{
           const page =this.currentPage--;
-
           joke(type, +page).then((res) => {
             this.list = res.showapi_res_body.contentlist;
           });
